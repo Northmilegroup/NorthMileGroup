@@ -110,7 +110,6 @@
     overflow: hidden;
   }
 
-  /* Meridian grid */
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -121,7 +120,6 @@
     opacity: 0.18;
   }
 
-  /* Radial vignette */
   #home::after {
     content: '';
     position: absolute;
@@ -165,10 +163,7 @@
     animation: fadeUp 1s ease 0.55s forwards;
   }
 
-  .hero-headline em {
-    font-style: italic;
-    color: var(--gold);
-  }
+  .hero-headline em { font-style: italic; color: var(--gold); }
 
   .hero-sub {
     font-size: 15px;
@@ -390,15 +385,6 @@
   }
 
   /* ── CONTACT ── */
-  #contact-wrap {
-    border-top: 1px solid var(--rule);
-    padding: 100px 5vw;
-    text-align: center;
-  }
-
-  #contact-wrap .section-rule { margin: 0 auto 32px; }
-  #contact-wrap .section-body { margin: 0 auto 52px; }
-
   .contact-form {
     max-width: 560px;
     margin: 0 auto;
@@ -438,14 +424,8 @@
   }
 
   .form-field select option { background: var(--navy-mid); color: var(--cream-dim); }
-
-  .form-field input::placeholder,
-  .form-field textarea::placeholder { color: var(--text-dim); }
-
-  .form-field input:focus,
-  .form-field select:focus,
-  .form-field textarea:focus { border-color: var(--gold); }
-
+  .form-field input::placeholder, .form-field textarea::placeholder { color: var(--text-dim); }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--gold); }
   .form-field textarea { resize: vertical; min-height: 120px; }
 
   .form-submit {
@@ -466,11 +446,7 @@
 
   .form-submit:hover { background: var(--cream-dim); transform: translateY(-1px); }
 
-  .form-note {
-    font-size: 11px;
-    color: var(--text-dim);
-    text-align: center;
-  }
+  .form-note { font-size: 11px; color: var(--text-dim); text-align: center; }
 
   /* ── FOOTER ── */
   footer {
@@ -484,11 +460,7 @@
     flex-wrap: wrap;
   }
 
-  .footer-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .footer-brand { display: flex; align-items: center; gap: 12px; }
 
   .footer-wordmark {
     font-family: 'Cormorant Garamond', serif;
@@ -559,7 +531,6 @@
 
 <!-- HERO -->
 <section id="home">
-  <!-- Meridian grid bg -->
   <div class="hero-bg">
     <svg width="700" height="700" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="350" cy="350" r="300" stroke="#C9A84C" stroke-width="1"/>
@@ -687,12 +658,10 @@
     <div class="service-card">
       <div class="service-icon">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-          <!-- Document with classification lines -->
           <rect x="7" y="4" width="22" height="28" rx="1" stroke="#C9A84C" stroke-width="1.5"/>
           <line x1="11" y1="11" x2="25" y2="11" stroke="#C9A84C" stroke-width="1" opacity="0.7"/>
           <line x1="11" y1="16" x2="25" y2="16" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
           <line x1="11" y1="21" x2="20" y2="21" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
-          <!-- Class badge -->
           <rect x="19" y="18" width="10" height="10" rx="1" fill="#C9A84C"/>
           <text x="24" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="700" fill="#0E1620">70</text>
         </svg>
@@ -723,7 +692,7 @@
       <p class="section-eyebrow">About the Firm</p>
       <h2 class="section-title">Built for the<br/><em>complexity of freight</em></h2>
       <div class="section-rule"></div>
-      <p class="section-body" style="margin-bottom:24px;">NorthMile Analytics Group is a specialized freight consulting firm focused exclusively on analytics and optimization for North American transportation. We work with shippers, carriers, and logistics providers that need rigorous analysis — not generalist advice.</p>
+      <p class="section-body" style="margin-bottom:24px;">NorthMile Analytics Group is a specialized freight consulting firm focused exclusively on analytics and optimization for North American transportation. We work with shippers and carriers that need rigorous analysis — not generalist advice.</p>
       <p class="section-body">We combine deep industry experience with structured data methodology to deliver recommendations that hold up in a boardroom and translate directly to operational change.</p>
     </div>
     <div class="about-panel">
@@ -740,28 +709,33 @@
   <div class="section-rule" style="margin:0 auto 32px;"></div>
   <p class="section-body" style="margin:0 auto 52px;">Whether you're benchmarking a single lane or redesigning a national distribution network, we'll tell you in the first conversation whether we can help — and how.</p>
 
-  <form class="contact-form" onsubmit="handleSubmit(event)">
+  <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleSubmit(event)">
+    <input type="hidden" name="access_key" value="14b2be40-963f-4d72-8f29-cab04f073f93"/>
+    <input type="hidden" name="to" value="nabih@northmilegroup.com,michael@northmilegroup.com"/>
+    <input type="hidden" name="subject" value="New Inquiry — NorthMile Analytics Group"/>
+    <input type="hidden" name="from_name" value="NorthMile Website"/>
+    <input type="checkbox" name="botcheck" style="display:none;"/>
     <div class="form-row">
       <div class="form-field">
         <label>First Name</label>
-        <input type="text" placeholder="John"/>
+        <input type="text" name="first_name" placeholder="John" required/>
       </div>
       <div class="form-field">
         <label>Last Name</label>
-        <input type="text" placeholder="Smith"/>
+        <input type="text" name="last_name" placeholder="Smith" required/>
       </div>
     </div>
     <div class="form-field">
       <label>Company</label>
-      <input type="text" placeholder="Acme Logistics Inc."/>
+      <input type="text" name="company" placeholder="Acme Logistics Inc." required/>
     </div>
     <div class="form-field">
       <label>Work Email</label>
-      <input type="email" placeholder="john@company.com"/>
+      <input type="email" name="email" placeholder="john@company.com" required/>
     </div>
     <div class="form-field">
       <label>Area of Interest</label>
-      <select>
+      <select name="service" required>
         <option value="" disabled selected>Select a service</option>
         <option>Freight Analytics (LTL)</option>
         <option>NMFC Classification &amp; Class Auditing</option>
@@ -772,7 +746,7 @@
     </div>
     <div class="form-field">
       <label>Tell us about your challenge</label>
-      <textarea placeholder="Brief description of what you're looking to solve..."></textarea>
+      <textarea name="message" placeholder="Brief description of what you're looking to solve..." required></textarea>
     </div>
     <button type="submit" class="form-submit">Send Inquiry</button>
     <p class="form-note">We respond within one business day.</p>
@@ -785,7 +759,6 @@
     <span style="color:var(--gold); font-weight:500;">*</span> The 12–18% cost reduction figure represents an observed range across prior client engagements and is provided for informational purposes only. Results vary based on shipper profile, freight characteristics, lane density, incumbent carrier agreements, and market conditions at the time of engagement. This figure does not constitute a guarantee, representation, or warranty of any specific outcome. NorthMile Analytics Group makes no promise of savings and all projections are estimates based on available data. Past performance is not indicative of future results. Prospective clients should independently evaluate all recommendations prior to implementation.
   </p>
 </div>
-
 
 <footer>
   <div class="footer-brand">
@@ -806,13 +779,31 @@
 </footer>
 
 <script>
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.form-submit');
-    btn.textContent = 'Inquiry Sent';
-    btn.style.background = '#C9A84C';
-    btn.style.opacity = '0.6';
+    const form = e.target;
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
     btn.disabled = true;
+
+    const data = new FormData(form);
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      btn.textContent = 'Inquiry Sent';
+      btn.style.background = '#C9A84C';
+      btn.style.opacity = '0.6';
+      form.reset();
+    } else {
+      btn.textContent = 'Something went wrong — try again';
+      btn.style.background = '#8B3A3A';
+      btn.style.color = '#E8DEBB';
+      btn.disabled = false;
+    }
   }
 </script>
 </body>
