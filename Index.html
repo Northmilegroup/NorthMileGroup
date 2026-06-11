@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NorthMile Analytics Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy:        #0E1620;
+    --navy-mid:    #141F2E;
+    --navy-card:   #19263A;
+    --gold:        #C9A84C;
+    --gold-light:  #DFC078;
+    --gold-dim:    #8A7035;
+    --cream:       #F7F4EE;
+    --cream-dim:   #E8DEBB;
+    --cream-muted: #C4B89A;
+    --text-body:   #9DADA0;
+    --text-dim:    #556070;
+    --rule:        rgba(201,168,76,0.15);
+    --rule-hard:   rgba(201,168,76,0.3);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream-dim);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+    height: 72px;
+    background: rgba(14,22,32,0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.14em;
+    color: var(--cream);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    color: var(--navy) !important;
+    background: var(--gold);
+    padding: 9px 22px;
+    border-radius: 1px;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--cream-dim) !important; color: var(--navy) !important; }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 5vw 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Meridian grid */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0.18;
+  }
+
+  /* Radial vignette */
+  #home::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 90% 80% at 50% 50%, transparent 30%, var(--navy) 80%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+
+  .hero-logo {
+    margin: 0 auto 44px;
+    width: 108px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s forwards;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 22px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 6.5vw, 76px);
+    font-weight: 300;
+    line-height: 1.08;
+    color: var(--cream);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.55s forwards;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-body);
+    max-width: 520px;
+    margin: 0 auto 48px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.85s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 1px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--cream-dim); transform: translateY(-1px); }
+
+  .btn-ghost {
+    display: inline-block;
+    border: 1px solid var(--rule-hard);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 1px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+
+  .btn-ghost:hover { border-color: var(--gold); color: var(--cream); transform: translateY(-1px); }
+
+  /* ── STAT BAR ── */
+  .stat-bar {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 36px 5vw;
+    display: flex;
+    justify-content: center;
+  }
+
+  .stat-item {
+    flex: 1;
+    max-width: 200px;
+    text-align: center;
+    padding: 0 28px;
+    border-right: 1px solid var(--rule);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ── SECTION BASE ── */
+  .section-wrap {
+    padding: 100px 5vw;
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+
+  .section-wrap + .section-wrap { border-top: 1px solid var(--rule); }
+
+  .section-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 3.8vw, 50px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .section-rule {
+    width: 44px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  .section-body {
+    font-size: 15px;
+    color: var(--text-body);
+    max-width: 560px;
+    line-height: 1.85;
+  }
+
+  /* ── SERVICES ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin-top: 60px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .service-card {
+    background: var(--navy);
+    padding: 44px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px; height: 0;
+    background: var(--gold);
+    transition: height 0.35s ease;
+  }
+
+  .service-card:hover { background: var(--navy-card); }
+  .service-card:hover::before { height: 100%; }
+
+  .service-icon { margin-bottom: 26px; }
+
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+  }
+
+  .service-desc {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.8;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-panel {
+    position: relative;
+    padding: 48px;
+    border: 1px solid var(--rule);
+    background: var(--navy-mid);
+  }
+
+  .about-panel::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 48px;
+    width: 72px; height: 2px;
+    background: var(--gold);
+  }
+
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .about-attr {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── CONTACT ── */
+  #contact-wrap {
+    border-top: 1px solid var(--rule);
+    padding: 100px 5vw;
+    text-align: center;
+  }
+
+  #contact-wrap .section-rule { margin: 0 auto 32px; }
+  #contact-wrap .section-body { margin: 0 auto 52px; }
+
+  .contact-form {
+    max-width: 560px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .form-field { display: flex; flex-direction: column; gap: 7px; }
+
+  .form-field label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    background: var(--navy-card);
+    border: 1px solid var(--rule);
+    color: var(--cream-dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 13px 16px;
+    border-radius: 1px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+
+  .form-field select option { background: var(--navy-mid); color: var(--cream-dim); }
+
+  .form-field input::placeholder,
+  .form-field textarea::placeholder { color: var(--text-dim); }
+
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus { border-color: var(--gold); }
+
+  .form-field textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .form-submit:hover { background: var(--cream-dim); transform: translateY(-1px); }
+
+  .form-note {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--rule);
+    background: var(--navy-mid);
+    padding: 36px 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cream-muted);
+  }
+
+  .footer-copy { font-size: 11px; color: var(--text-dim); }
+
+  .footer-links { display: flex; gap: 28px; list-style: none; }
+
+  .footer-links a {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .stat-bar { flex-wrap: wrap; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--rule); min-width: 140px; padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">
+    <svg width="34" height="34" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="40" cy="40" rx="32" ry="32" stroke="#C9A84C" stroke-width="0.7" opacity="0.22"/>
+      <ellipse cx="40" cy="40" rx="16" ry="32" stroke="#C9A84C" stroke-width="0.7" opacity="0.26"/>
+      <ellipse cx="40" cy="40" rx="26" ry="32" stroke="#C9A84C" stroke-width="0.6" opacity="0.18"/>
+      <line x1="8" y1="29" x2="72" y2="29" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+      <line x1="8" y1="40" x2="72" y2="40" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+      <line x1="8" y1="51" x2="72" y2="51" stroke="#C9A84C" stroke-width="0.5" opacity="0.2"/>
+      <circle cx="40" cy="40" r="32" stroke="#E8DEBB" stroke-width="1.6"/>
+      <text x="45.5" y="49.5" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="24.5" font-weight="700" fill="#C9A84C" opacity="0.45">M</text>
+      <text x="35" y="49.5" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="24.5" font-weight="700" fill="#E8DEBB">N</text>
+    </svg>
+    <span class="nav-wordmark">NorthMile</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact-wrap" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <!-- Meridian grid bg -->
+  <div class="hero-bg">
+    <svg width="700" height="700" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="350" cy="350" r="300" stroke="#C9A84C" stroke-width="1"/>
+      <ellipse cx="350" cy="350" rx="150" ry="300" stroke="#C9A84C" stroke-width="0.8"/>
+      <ellipse cx="350" cy="350" rx="250" ry="300" stroke="#C9A84C" stroke-width="0.8"/>
+      <ellipse cx="350" cy="350" rx="200" ry="300" stroke="#C9A84C" stroke-width="0.6"/>
+      <line x1="50" y1="230" x2="650" y2="230" stroke="#C9A84C" stroke-width="0.6"/>
+      <line x1="50" y1="350" x2="650" y2="350" stroke="#C9A84C" stroke-width="0.6"/>
+      <line x1="50" y1="470" x2="650" y2="470" stroke="#C9A84C" stroke-width="0.6"/>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <svg class="hero-logo" viewBox="0 0 200 224" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="100" cy="80" rx="60" ry="60" stroke="#C9A84C" stroke-width="0.8" opacity="0.2"/>
+      <ellipse cx="100" cy="80" rx="30" ry="60" stroke="#C9A84C" stroke-width="0.8" opacity="0.25"/>
+      <ellipse cx="100" cy="80" rx="50" ry="60" stroke="#C9A84C" stroke-width="0.8" opacity="0.2"/>
+      <ellipse cx="100" cy="80" rx="42" ry="60" stroke="#C9A84C" stroke-width="0.6" opacity="0.15"/>
+      <line x1="40" y1="58" x2="160" y2="58" stroke="#C9A84C" stroke-width="0.6" opacity="0.2"/>
+      <line x1="40" y1="80" x2="160" y2="80" stroke="#C9A84C" stroke-width="0.6" opacity="0.2"/>
+      <line x1="40" y1="102" x2="160" y2="102" stroke="#C9A84C" stroke-width="0.6" opacity="0.2"/>
+      <circle cx="100" cy="80" r="60" stroke="#E8DEBB" stroke-width="2.5"/>
+      <text x="110" y="98" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="46" font-weight="700" fill="#C9A84C" opacity="0.45">M</text>
+      <text x="91" y="98" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="46" font-weight="700" fill="#E8DEBB">N</text>
+    </svg>
+
+    <p class="hero-eyebrow">North American Freight Analytics &amp; Optimization</p>
+    <h1 class="hero-headline">Your freight data<br/>knows more than<br/><em>you're being told</em></h1>
+    <p class="hero-sub">NorthMile Analytics Group delivers freight analytics, transportation optimization, and network design for shippers across North America.</p>
+    <div class="hero-actions">
+      <a href="#contact-wrap" class="btn-primary">Work With Us</a>
+      <a href="#services" class="btn-ghost">Our Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- SHIPPER SEGMENTS TICKER -->
+<div style="background:var(--navy-mid); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:14px 5vw; overflow:hidden; position:relative;">
+  <div style="display:flex; align-items:center; gap:0; white-space:nowrap; animation:ticker 28s linear infinite;">
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-dim); padding-right:40px;">Serving shippers in</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">General Commodity</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Retail &amp; Consumer Goods</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Chemical &amp; Hazmat</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Automotive &amp; Industrial</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Food &amp; Beverage</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Building Materials</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <!-- Duplicate for seamless loop -->
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-dim); padding-right:40px;">Serving shippers in</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">General Commodity</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Retail &amp; Consumer Goods</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Chemical &amp; Hazmat</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Automotive &amp; Industrial</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Food &amp; Beverage</span>
+    <span style="color:var(--rule-hard); padding-right:48px;">·</span>
+    <span style="font-size:10px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); padding-right:48px;">Building Materials</span>
+  </div>
+</div>
+<style>
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+</style>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="stat-item">
+    <div class="stat-num">$500M+</div>
+    <div class="stat-label">Freight Spend Analyzed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">12–18%<a href="#disclaimer" style="font-size:16px; color:var(--gold); vertical-align:super; text-decoration:none; line-height:0;">*</a></div>
+    <div class="stat-label">Avg. Cost Reduction</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" style="font-size:28px; letter-spacing:0.08em;">United States<br/>&amp; Canada</div>
+    <div class="stat-label">North American Scope</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="services" class="section-wrap">
+  <p class="section-eyebrow">What We Do</p>
+  <h2 class="section-title">Analytical rigor.<br/><em>Operational results.</em></h2>
+  <div class="section-rule"></div>
+  <p class="section-body">We work with transportation teams that have outgrown spreadsheets and need structured, defensible analysis — not just a report, but a roadmap.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <rect x="4" y="20" width="4" height="12" fill="#C9A84C" opacity="0.9"/>
+          <rect x="11" y="14" width="4" height="18" fill="#C9A84C" opacity="0.7"/>
+          <rect x="18" y="8" width="4" height="24" fill="#C9A84C"/>
+          <rect x="25" y="16" width="4" height="16" fill="#C9A84C" opacity="0.6"/>
+          <line x1="3" y1="33" x2="33" y2="33" stroke="#556070" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="service-name">Freight Analytics</div>
+      <div class="service-desc">Specialized in LTL — lane-level cost benchmarking, carrier performance scoring, and spend analysis that surfaces the gaps your TMS isn't showing you. We speak the language of LTL pricing natively: discounts, minimums, and accessorial exposure included.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <circle cx="8" cy="28" r="3.5" fill="#C9A84C"/>
+          <circle cx="28" cy="10" r="3.5" fill="#C9A84C"/>
+          <circle cx="18" cy="20" r="2.5" fill="#556070"/>
+          <path d="M 8 28 Q 14 14 18 20 Q 22 26 28 10" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="service-name">Transportation Optimization</div>
+      <div class="service-desc">Mode selection, load planning, and routing analysis designed to cut cost per unit moved — without sacrificing service levels.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <!-- Document with classification lines -->
+          <rect x="7" y="4" width="22" height="28" rx="1" stroke="#C9A84C" stroke-width="1.5"/>
+          <line x1="11" y1="11" x2="25" y2="11" stroke="#C9A84C" stroke-width="1" opacity="0.7"/>
+          <line x1="11" y1="16" x2="25" y2="16" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+          <line x1="11" y1="21" x2="20" y2="21" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+          <!-- Class badge -->
+          <rect x="19" y="18" width="10" height="10" rx="1" fill="#C9A84C"/>
+          <text x="24" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="700" fill="#0E1620">70</text>
+        </svg>
+      </div>
+      <div class="service-name">NMFC Classification &amp; Class Auditing</div>
+      <div class="service-desc">Incorrect freight classification is one of the most common — and costly — billing errors in LTL. We audit your commodity descriptions, assign correct NMFC codes and freight classes, and identify reclassification opportunities that reduce invoice disputes and prevent carrier overcharges.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <rect x="4" y="4" width="10" height="10" rx="1" stroke="#C9A84C" stroke-width="1.5"/>
+          <rect x="22" y="4" width="10" height="10" rx="1" stroke="#C9A84C" stroke-width="1.5"/>
+          <rect x="13" y="22" width="10" height="10" rx="1" stroke="#C9A84C" stroke-width="1.5"/>
+          <line x1="9" y1="14" x2="18" y2="22" stroke="#556070" stroke-width="1" stroke-dasharray="2,2"/>
+          <line x1="27" y1="14" x2="18" y2="22" stroke="#556070" stroke-width="1" stroke-dasharray="2,2"/>
+        </svg>
+      </div>
+      <div class="service-name">Network Design</div>
+      <div class="service-desc">DC placement, carrier mix, and flow path modeling to build a distribution network that scales with your volume — not against it.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="section-wrap">
+  <div class="about-grid">
+    <div>
+      <p class="section-eyebrow">About the Firm</p>
+      <h2 class="section-title">Built for the<br/><em>complexity of freight</em></h2>
+      <div class="section-rule"></div>
+      <p class="section-body" style="margin-bottom:24px;">NorthMile Analytics Group is a specialized freight consulting firm focused exclusively on analytics and optimization for North American transportation. We work with shippers, carriers, and logistics providers that need rigorous analysis — not generalist advice.</p>
+      <p class="section-body">We combine deep industry experience with structured data methodology to deliver recommendations that hold up in a boardroom and translate directly to operational change.</p>
+    </div>
+    <div class="about-panel">
+      <p class="about-quote">"The best logistics decisions aren't made by instinct — they're made by people who know exactly where to look in the data."</p>
+      <p class="about-attr">— NorthMile Analytics Group</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact-wrap" style="border-top:1px solid var(--rule); padding:100px 5vw; text-align:center;">
+  <p class="section-eyebrow">Get in Touch</p>
+  <h2 class="section-title">Tell us about<br/><em>your network</em></h2>
+  <div class="section-rule" style="margin:0 auto 32px;"></div>
+  <p class="section-body" style="margin:0 auto 52px;">Whether you're benchmarking a single lane or redesigning a national distribution network, we'll tell you in the first conversation whether we can help — and how.</p>
+
+  <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleSubmit(event)">
+    <!-- Web3Forms config -->
+    <input type="hidden" name="access_key" value="14b2be40-963f-4d72-8f29-cab04f073f93"/>
+    <input type="hidden" name="to" value="nabih@northmilegroup.com,michael@northmilegroup.com"/>
+    <input type="hidden" name="subject" value="New Inquiry — NorthMile Analytics Group"/>
+    <input type="hidden" name="from_name" value="NorthMile Website"/>
+    <input type="checkbox" name="botcheck" style="display:none;"/>
+
+    <div class="form-row">
+      <div class="form-field">
+        <label>First Name</label>
+        <input type="text" name="first_name" placeholder="John" required/>
+      </div>
+      <div class="form-field">
+        <label>Last Name</label>
+        <input type="text" name="last_name" placeholder="Smith" required/>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Company</label>
+      <input type="text" name="company" placeholder="Acme Logistics Inc." required/>
+    </div>
+    <div class="form-field">
+      <label>Work Email</label>
+      <input type="email" name="email" placeholder="john@company.com" required/>
+    </div>
+    <div class="form-field">
+      <label>Area of Interest</label>
+      <select name="service" required>
+        <option value="" disabled selected>Select a service</option>
+        <option>Freight Analytics (LTL)</option>
+        <option>NMFC Classification &amp; Class Auditing</option>
+        <option>Transportation Optimization</option>
+        <option>Network Design</option>
+        <option>Not sure — need a scoping call</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label>Tell us about your challenge</label>
+      <textarea name="message" placeholder="Brief description of what you're looking to solve..." required></textarea>
+    </div>
+    <button type="submit" class="form-submit">Send Inquiry</button>
+    <p class="form-note">We respond within one business day.</p>
+  </form>
+</div>
+
+<!-- DISCLAIMER -->
+<div id="disclaimer" style="border-top:1px solid var(--rule); padding:28px 5vw; background:var(--navy-mid);">
+  <p style="font-size:11px; color:var(--text-dim); line-height:1.8; max-width:900px; margin:0 auto; text-align:center;">
+    <span style="color:var(--gold); font-weight:500;">*</span> The 12–18% cost reduction figure represents an observed range across prior client engagements and is provided for informational purposes only. Results vary based on shipper profile, freight characteristics, lane density, incumbent carrier agreements, and market conditions at the time of engagement. This figure does not constitute a guarantee, representation, or warranty of any specific outcome. NorthMile Analytics Group makes no promise of savings and all projections are estimates based on available data. Past performance is not indicative of future results. Prospective clients should independently evaluate all recommendations prior to implementation.
+  </p>
+</div>
+
+
+<footer>
+  <div class="footer-brand">
+    <svg width="26" height="26" viewBox="0 0 80 80" fill="none">
+      <circle cx="40" cy="40" r="32" stroke="#C9A84C" stroke-width="1.2" opacity="0.5"/>
+      <text x="45.5" y="49.5" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="24.5" font-weight="700" fill="#C9A84C" opacity="0.45">M</text>
+      <text x="35" y="49.5" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="24.5" font-weight="700" fill="#E8DEBB">N</text>
+    </svg>
+    <span class="footer-wordmark">NorthMile Analytics Group</span>
+  </div>
+  <span class="footer-copy">© 2026 NorthMile Analytics Group, LLC. All rights reserved.</span>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact-wrap">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const data = new FormData(form);
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data
+    });
+    const result = await response.json();
+
+    if (result.success) {
+      btn.textContent = 'Inquiry Sent';
+      btn.style.background = '#C9A84C';
+      btn.style.opacity = '0.6';
+      form.reset();
+    } else {
+      btn.textContent = 'Something went wrong — try again';
+      btn.style.background = '#8B3A3A';
+      btn.style.color = '#E8DEBB';
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
